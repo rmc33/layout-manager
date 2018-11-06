@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import _ from "lodash";
+//import _ from "lodash";
 import { Responsive } from "react-grid-layout";
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -71,7 +71,7 @@ class LayoutManager extends Component {
 
     render() {
         const { layouts, rowHeight, cols, className, width, height, margin, breakpoints } = this.state;
-        const { compactType, preventCollision, measureBeforeMount, useCSSTransforms } = this.props;
+        const { compactType, preventCollision, measureBeforeMount, useCSSTransforms, children } = this.props;
         return (<Responsive className={className} 
                     layouts={this.generateLayouts(layouts, height, width, rowHeight, cols, margin)}
                     breakpoints={breakpoints}
@@ -84,7 +84,7 @@ class LayoutManager extends Component {
                     height={height}
                     margin={margin}
                 >
-                    {this.props.children}
+                    {children}
                 </Responsive>);
     }
 }
