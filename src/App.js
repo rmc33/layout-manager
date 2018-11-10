@@ -20,8 +20,8 @@ class App extends Component {
     };
 
     return (
-      <div className="App" style={{height: '800px'}}>
-        <LayoutManager layouts={layouts} margin={[2,2]} rowHeight={1}>
+      <div className="App" style={{height: '100vh'}}>
+        <LayoutManager layouts={layouts} margin={[10,10]} rowHeight={1}>
           <div key="0" style={style.gridItem}>Side</div>
           <div key="1" style={style.gridItem}>Top</div>
           <div key="2" style={style.gridItem}>Middle</div>

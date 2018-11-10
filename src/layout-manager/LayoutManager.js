@@ -5,11 +5,32 @@ import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import { withSize } from './SizeProvider';
 
+const computeItemHeight = (itemHeight, totalHeight, accumulatedHeight, rowHeight, margin) => {
+    if (itemHeight.indexOf('%') !== -1) {
+        const h = (parseFloat(itemHeight) / 100.0) * totalHeight;
+        return Math.round(h / (rowHeight + margin));
+    }
+    if (itemHeight === 'rest') {
+        return Math.round(totalHeight - accumulatedHeight / (rowHeight + margin));
+    }
+    return itemHeight;
+}
+
+const computeItemWidth = (itemWidth, totalWidth, accumulatedWidth, numberCols, margin) => {
+    if (itemWidth.indexOf('%') !== -1) {
+        const w = (parseFloat(itemWidth) / 100.0) * totalWidth;
+        return Math.round(w - margin * 2 / numberCols);
+    }
+    if (itemWidth === 'rest') {
+        return Math.round(totalWidth - accumulatedWidth - margin * 2 / numberCols);
+    }
+}
+
 class LayoutManager extends Component {
 
     static defaultProps = {
         className: "layout",
-        rowHeight: 25,
+        rowHeight: 1,
         cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
         onLayoutChange: function() {},
         onBreakpointChange: function() {},
@@ -24,14 +45,8 @@ class LayoutManager extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rowHeight: props.rowHeight,
-            className: props.className,
-            breakpoints: props.breakpoints,
             height: props.height,
-            width: props.width,
-            layouts: props.layouts,
-            cols: props.cols,
-            margin: props.margin
+            width: props.width
         }
     }
 
@@ -44,25 +59,24 @@ class LayoutManager extends Component {
 
     generateLayouts(layouts, height, width, rowHeight, cols, margin) {
         const generatedLayout = {};
+        let accumulatedHeight, accumulatedWidth = 0;
         Object.keys(layouts).forEach(layoutKey => {
             generatedLayout[layoutKey] = layouts[layoutKey].map(layout => {
                 const item = { ...layout };
-                if (typeof item.h === 'string' && item.h.indexOf('%') !== -1) {
-                    const h = (parseFloat(item.h) / 100.0) * height;
-                    item.h = Math.round(h / (rowHeight + margin[1]));
+                if (typeof item.h === 'string') {
+                    item.h = computeItemHeight(item.h, height, accumulatedHeight, rowHeight, margin[1]);
                 }
-                if (typeof item.y === 'string' && item.y.indexOf('%') !== -1) {
-                    const h = (parseFloat(item.y) / 100.0) * height;
-                    item.y = Math.round(h / (rowHeight + margin[1]));
+                if (typeof item.y === 'string') {
+                    item.y = computeItemHeight(item.y, height, accumulatedHeight, rowHeight, margin[1]);
                 }
-                if (typeof item.w === 'string' && item.w.indexOf('%') !== -1) {
-                    const w = (parseFloat(item.w) / 100.0) * width;
-                    item.w = Math.round((w - margin[0] * 2) / cols[layoutKey]);
+                if (typeof item.w === 'string') {
+                    item.w = computeItemWidth(item.w, width, accumulatedWidth, cols[layoutKey], margin[0]);
                 }
-                if (typeof item.x === 'string' && item.x.indexOf('%') !== -1) {
-                    const w = (parseFloat(item.x) / 100.0) * width;
-                    item.y = Math.round((w - margin[0] * 2) / cols[layoutKey]);
-                }
+                if (typeof item.x === 'string') {
+                   item.x = computeItemWidth(item.x, width, accumulatedWidth, cols[layoutKey], margin[0]);
+                }   
+                accumulatedHeight += item.y;
+                accumulatedWidth += item.w;
                 return item;
             });
         });
@@ -70,8 +84,10 @@ class LayoutManager extends Component {
     }
 
     render() {
-        const { layouts, rowHeight, cols, className, width, height, margin, breakpoints } = this.state;
-        const { compactType, preventCollision, measureBeforeMount, useCSSTransforms, children } = this.props;
+        const { height, width } = this.state;
+        const { layouts, rowHeight, compactType, preventCollision, measureBeforeMount, useCSSTransforms, children,
+            cols, className, margin, breakpoints
+        } = this.props;
         return (<Responsive className={className} 
                     layouts={this.generateLayouts(layouts, height, width, rowHeight, cols, margin)}
                     breakpoints={breakpoints}
@@ -81,7 +97,6 @@ class LayoutManager extends Component {
                     useCSSTransforms={useCSSTransforms}
                     rowHeight={rowHeight}
                     width={width}
-                    height={height}
                     margin={margin}
                 >
                     {children}
