@@ -6,9 +6,9 @@ In the project directory, you can run:
 ### `npm install`
 ### `npm start`
 
-This project allows changing a component's layout based on a standard layout configuration and interface.
+This project allows changing a component's layout or how child components are displayed based on a standard layout configuration and interface.
 
-It has two different layout components to choose from React Grid Layout or Material UI's Grid. React Grid Layout allows resizing and dragging of layout items. Material UI's Grid is much like a React flex container implementation.
+It has two different layout components to choose from React Grid Layout or Material UI's Grid. React Grid Layout allows resizing and dragging of layout child components. Material UI's Grid is much like a React flex container implementation.
 
 https://material-ui.com/layout/grid/
 https://github.com/STRML/react-grid-layout
