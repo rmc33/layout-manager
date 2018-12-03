@@ -20,6 +20,16 @@ class GridLayoutManager extends Component {
         breakpoints: { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 },
     };
 
+    
+    renderGridItems = () => {
+        const { children, width, height } = this.props;
+        return children.map(child => {
+            return <div key={child.key}>
+                {React.cloneElement(child, { width, height })}
+            </div>;
+        });
+    }
+
     render() {
         const {
             height,
@@ -41,7 +51,7 @@ class GridLayoutManager extends Component {
             width={width}
             margin={margin}
         >
-            {children}
+            {this.renderGridItems()}
         </ResponsiveReactGridLayout>);
     }
 }

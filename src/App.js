@@ -4,7 +4,8 @@ import LayoutManager from './layout-manager/LayoutManager';
 
 const style = {
   gridItem: {
-    backgroundColor: 'gray'
+    backgroundColor: 'gray',
+    height: '100%'
   }
 }
 
@@ -13,7 +14,7 @@ const Side = (props) => {
 }
 
 const Top = (props) => {
-  return <div>Top</div>
+  return <div style={props.style}>Top</div>
 }
 
 class App extends Component {
