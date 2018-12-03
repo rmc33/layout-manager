@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import GridLayoutManager from './GridLayoutManager';
-import ColumnLayoutManager from './ColumnLayoutManager';
+import GridLayoutManager from './layouts/GridLayoutManager';
+import ColumnLayoutManager from './layouts/ColumnLayoutManager';
 import { withSize } from './SizeProvider';
 
 const layoutManagerComponents = {

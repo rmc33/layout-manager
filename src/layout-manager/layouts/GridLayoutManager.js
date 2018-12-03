@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import _ from "lodash";
 import { Responsive, WidthProvider } from "react-grid-layout";
-import { generatePercentageLayouts } from './utils';
+import { generatePercentageLayouts } from '../utils';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
