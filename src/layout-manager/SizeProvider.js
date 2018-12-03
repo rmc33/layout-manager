@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export function withSize(WrappedComponent, style) {
+export function withSize(WrappedComponent, style, autoResize) {
 
     return class extends Component {
         
@@ -12,22 +12,28 @@ export function withSize(WrappedComponent, style) {
         }
 
         componentDidMount() {
-            window.addEventListener('resize', this.setSize);
+            if (autoResize)
+                window.addEventListener('resize', this.setSize);
             this.setSize();
         }
 
         setSize() {
             const el = this.componentRef.current;
-            el && this.setState({ 
+            const windowWidth = isNaN(window.innerWidth) ? window.clientWidth : window.innerWidth;
+            const windowHeight = isNaN(window.innerHeight) ? window.clientHeight : window.innerHeight;
+            el && this.setState({
                 width: el.clientWidth, 
                 height: el.clientHeight,
                 offsetTop: el.offsetTop,
-                offsetLeft: el.offsetLeft 
+                offsetLeft: el.offsetLeft,
+                windowWidth,
+                windowHeight
             });
         }
 
         componentWillUnmount() {
-            window.removeEventListener('resize', this.setSize);
+            if (autoResize)
+                window.removeEventListener('resize', this.setSize);
         }
 
         render() {

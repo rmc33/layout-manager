@@ -7,6 +7,15 @@ const style = {
     backgroundColor: 'gray'
   }
 }
+
+const Side = (props) => {
+  return <div>Side</div>
+}
+
+const Top = (props) => {
+  return <div>Top</div>
+}
+
 class App extends Component {
   
   render() {
@@ -21,9 +30,9 @@ class App extends Component {
 
     return (
       <div className="App" style={{height: '100vh'}}>
-        <LayoutManager layouts={layouts} margin={[10,10]} rowHeight={1}>
-          <div key="0" style={style.gridItem}>Side</div>
-          <div key="1" style={style.gridItem}>Top</div>
+        <LayoutManager layouts={layouts} margin={[0,0]} rowHeight={1}>
+          <div key="0" style={style.gridItem}><Side/></div>
+          <Top key="1" style={style.gridItem}>Top</Top>
           <div key="2" style={style.gridItem}>Middle</div>
         </LayoutManager>
       </div>
