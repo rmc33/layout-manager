@@ -10,8 +10,8 @@ This project allows changing a component's layout or how child components are di
 
 It has two different layout components to choose from React Grid Layout or Material UI's Grid. React Grid Layout allows resizing and dragging of layout child components. Material UI's Grid is much like a React flex container implementation.
 
-https://material-ui.com/layout/grid/
-https://github.com/STRML/react-grid-layout
+#### https://material-ui.com/layout/grid/
+#### https://github.com/STRML/react-grid-layout
 
 LayoutManager example:
 
@@ -37,24 +37,24 @@ render() {
     );
  }`
  
- Layout Interface
+### Layout Interface
 
-children props: 
+#### children props: 
 components with key matching item id in layouts object. Note that these can be of any component type.
 
-layouts Object:
-Object with all defined breakpoints and item Object configurations.
+#### layouts Object:
+Object with all defined breakpoints and layoutItem Object configurations.
 { breakpointSize: [...items] }
 
-item Object:
+#### layoutItem Object:
 
 {i: 'item id', w: item width or cols (int),...(other react grid layout or material ui specific item props}}
 
-layoutName String:
+#### layoutName String:
 ('GridLayoutManger' for React Grid Layout or 'ColumnLayoutManager' for Material UI Grid)
 
-onBreakpointChange(String Breakpoint):
+#### onBreakpointChange(String Breakpoint):
 Callback made when a layout breakpoint has changed
 
-onLayoutChange(Object currentLayout, Object layouts):
+#### onLayoutChange(Object currentLayout, Object layouts):
 Callback made when a layout has changed. Implemented in GridLayoutManager (React Grid Layout) when a layout item is dragged or resized.
