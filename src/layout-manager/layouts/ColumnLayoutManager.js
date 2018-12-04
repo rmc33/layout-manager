@@ -14,17 +14,20 @@ function ColumnLayoutManager(props) {
         return children.map(child => {
             //wrap in grid item does not cause child to render twice
             const item = layouts[breakpoint].find(i => i.i === child.key);
-            return <Grid item xs={item.w} key={child.key}>
+            return <Grid item {...item} xs={item.w} key={child.key}>
                 {React.cloneElement(child, { width, height })}
             </Grid>;
         });
     }
 
-    const { spacing, breakpoint, onBreakpointChange } = props;
+    const { breakpoint, layouts, layoutName,
+        breakpoints, onBreakpointChange, height, style, ...rest } = props;
 
-    if (breakpoint !== currentBreakpoint && onBreakpointChange) onBreakpointChange(breakpoint);
-
-    return (<Grid container spacing={spacing}>
+    if (breakpoint !== currentBreakpoint && onBreakpointChange)
+        onBreakpointChange(breakpoint);
+        
+    const muGridStyle = style ? style : { height };
+    return (<Grid container {...rest} style={muGridStyle}>
         {renderGridItems()}
     </Grid>);
 }

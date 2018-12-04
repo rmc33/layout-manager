@@ -26,7 +26,7 @@ class LayoutManager extends Component {
         const { autoResize, children, layoutName } = this.props;
         const LayoutManagerComponent = layoutManagerComponents[layoutName];
         const SizedLayout = withSize(LayoutManagerComponent,
-            { height: '100%', width: '100%' }, autoResize);
+            { autoResize });
 
         return (<SizedLayout
             {...this.props}>

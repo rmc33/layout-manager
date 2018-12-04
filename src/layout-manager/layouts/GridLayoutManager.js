@@ -19,7 +19,6 @@ class GridLayoutManager extends Component {
         margin: [0, 0],
         breakpoints: { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 },
     };
-
     
     renderGridItems = () => {
         const { children, width, height } = this.props;
@@ -36,7 +35,6 @@ class GridLayoutManager extends Component {
             width,
             layouts,
             rowHeight,
-            children,
             cols,
             margin
         } = this.props;
@@ -46,6 +44,7 @@ class GridLayoutManager extends Component {
 
         return (<ResponsiveReactGridLayout
             {...this.props}
+            onBreakpointChange={this.onBreakpointChange}
             layouts={gridLayouts.layouts}
             rowHeight={rowHeight}
             width={width}
